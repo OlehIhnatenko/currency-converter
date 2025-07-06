@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { Currency } from '../../interfaces/currency.interface';
+import { CurrencySelectorComponent } from '../currency-selector/currency-selector.component';
 
 @Component({
   selector: 'app-currency-converter',
@@ -16,13 +18,14 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    CurrencySelectorComponent
   ],
   templateUrl: './currency-converter.component.html',
   styleUrl: './currency-converter.component.scss'
 })
 export class CurrencyConverterComponent {
-  currencies: any = [];
+  currencies: Currency[] = [];
   fromCurrency: string = '';
   toCurrency: string = '';
   amount: number = 1;
@@ -41,7 +44,6 @@ export class CurrencyConverterComponent {
   loadCurrencies(): void {
     this.currencyService.getCurrencies().subscribe((currencies) => {
         this.currencies = currencies;
-        console.log(Array.isArray(this.currencies))
         this.fromCurrency = this.currencies[0].short_code;
         this.toCurrency = this.currencies[1].short_code;
       },

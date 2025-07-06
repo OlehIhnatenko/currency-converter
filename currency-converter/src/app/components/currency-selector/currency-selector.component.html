@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill" style="width: 100%;">
+  <mat-label>{{ label }}</mat-label>
+  <mat-select
+    [(ngModel)]="selectedCurrency"
+    (ngModelChange)="onCurrencyChange($event.value)"
+  >
+    <mat-option *ngFor="let currency of currencies" [value]="currency.short_code">
+      {{ currency.short_code }} - {{ currency.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
