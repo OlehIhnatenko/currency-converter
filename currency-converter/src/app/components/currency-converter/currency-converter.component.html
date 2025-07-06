@@ -1,0 +1,41 @@
+<div class="converter-container">
+  <h2>Currency Converter</h2>
+
+  <form class="converter-form" (ngSubmit)="onConvert()">
+    <!-- From Currency -->
+    <mat-form-field appearance="fill">
+      <mat-label>From</mat-label>
+      <mat-select [(ngModel)]="fromCurrency" name="fromCurrency" required>
+        <mat-option *ngFor="let currency of currencies" [value]="currency.short_code">
+          {{ currency.short_code }} - {{ currency.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- To Currency -->
+    <mat-form-field appearance="fill">
+      <mat-label>To</mat-label>
+      <mat-select [(ngModel)]="toCurrency" name="toCurrency" required>
+        <mat-option *ngFor="let currency of currencies" [value]="currency.short_code">
+          {{ currency.short_code }} - {{ currency.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Amount -->
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" [(ngModel)]="amount" name="amount" min="0" required />
+    </mat-form-field>
+
+    <!-- Convert Button -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+      {{ isLoading ? 'Converting...' : 'Convert' }}
+    </button>
+  </form>
+
+  <!-- Conversion Result -->
+  <div class="result" *ngIf="convertedAmount !== null">
+    <p>{{ amount }} {{ fromCurrency }} = <strong>{{ convertedAmount }}</strong> {{ toCurrency }}</p>
+  </div>
+</div>
